@@ -12,10 +12,26 @@ import build_rts
 from support import add_source_search_path
 
 
+class ArmV7MArch_Patched(arm.cortexm.ArmV7MArch):
+    def __init__(self):
+        super(ArmV7MArch_Patched, self).__init__()
+        # Use our own patched version of s-bbbosu.adb which has a fix that is
+        # not yet merged upstream (the fix ensures that Interrupt_Wrapper is
+        # called with interrupts disabled to avoid a race condition with
+        # nested interrupts).
+        # See: https://forum.ada-lang.io/t/a-bug-in-stm32-bareboard-runtimes/2168
+        self.remove_source("s-bbbosu.adb")
+        self.add_gnarl_sources("stm32g4_src/s-bbbosu.adb")
+
+
 class Stm32G4(arm.cortexm.CortexM4F):
     @property
     def name(self):
         return "stm32g4xx"
+
+    @property
+    def parent(self):
+        return ArmV7MArch_Patched
 
     @property
     def use_semihosting_io(self):
