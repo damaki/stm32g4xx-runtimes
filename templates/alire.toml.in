@@ -123,7 +123,7 @@ PLL_Q_Div = { type = "Enum", values = ["DIV2", "DIV4", "DIV6", "DIV8"],  default
 PLL_P_Div = { type = "Integer", first = 2, last = 31, default = 2 }
 PLL_Q_Enable = { type = "Boolean", default = true }
 PLL_P_Enable = { type = "Boolean", default = true }
-SYSCLK_Src = { type = "Enum", values = ["HSI16", "HSE", "PLLRCLK"], default = "HSI16" }
+SYSCLK_Src = { type = "Enum", values = ["HSI16", "HSE", "PLLRCLK"], default = "PLLRCLK" }
 AHB_Pre = { type = "Enum", values = ["DIV1", "DIV2", "DIV4", "DIV8", "DIV16", "DIV64", "DIV128", "DIV256", "DIV512"], default = "DIV1" }
 APB1_Pre = { type = "Enum", values = ["DIV1", "DIV2", "DIV4", "DIV8", "DIV16"], default = "DIV1" }
 APB2_Pre = { type = "Enum", values = ["DIV1", "DIV2", "DIV4", "DIV8", "DIV16"], default = "DIV1" }
