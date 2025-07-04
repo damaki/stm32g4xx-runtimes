@@ -1,0 +1,41 @@
+on:
+    push:
+      branches:
+        - main
+    pull_request:
+    workflow_dispatch:
+
+jobs:
+
+  build:
+    strategy:
+      matrix:
+        # Also build on Windows since there have been some windows-specific
+        # problems in the past.
+        os: ["ubuntu-latest", "windows-latest"]
+        profile: ["light", "light-tasking", "embedded"]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - uses: alire-project/setup-alire@v4
+        with:
+          version: 2.1.0
+
+      - name: Generate Runtime
+        run: |
+          python build-rts.py --rts-src-descriptor=bb-runtimes/gnat_rts_sources/lib/gnat/rts-sources.json stm32g4xx
+          python crateify.py --runtime-dir=install/${{ matrix.profile }}-stm32g4xx --profile=${{ matrix.profile }}
+
+      - name: Build Runtime
+        run: |
+          cd install/${{ matrix.profile }}-stm32g4xx
+          alr build
