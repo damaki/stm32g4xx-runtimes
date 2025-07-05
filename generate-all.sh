@@ -45,6 +45,7 @@ done
 echo "Generating runtimes"
 python build-rts.py \
     --rts-src-descriptor=bb-runtimes/gnat_rts_sources/lib/gnat/rts-sources.json \
+    --force \
     stm32g4xx
 
 for target in stm32g4xx; do
