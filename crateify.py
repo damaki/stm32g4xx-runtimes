@@ -19,6 +19,16 @@ import shutil
 from typing import Dict
 
 
+project_file_withs_light = """\
+   with "runtime_build.gpr";\
+"""
+
+project_file_withs_ravenscar = """\
+   with "runtime_build.gpr";
+   with "ravenscar_build.gpr";\
+"""
+
+
 def patch_ravenscar_build_gpr(gpr_file: pathlib.Path, profile: str, target: str):
     """Patch the ravenscar_build.gpr file to add some style switches"""
 
@@ -146,7 +156,10 @@ def main():
         "pretty_target": pretty_target,
         "project_files_list": str(project_files),
         "version": args.version,
-        "languages_list": ", ".join(f'"{lang}"' for lang in languages_list)
+        "languages_list": ", ".join(f'"{lang}"' for lang in languages_list),
+        "project_file_withs": (
+            project_file_withs_ravenscar if has_libgnarl else project_file_withs_light
+        ),
     }
 
     templates_dir = pathlib.Path(__file__).parent / "templates"
