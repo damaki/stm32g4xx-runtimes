@@ -25,6 +25,11 @@ Then edit your project file to add the following elements:
    ```ada
    with "runtime_build.gpr";
    ```
+ - if you are using the **light-tasking** or **embedded** runtime profile, then
+   you also need to "with" `ravenscar_build.gpr`:
+   ```ada
+   with "ravenscar_build.gpr";
+   ```
  - specify the `Target` and `Runtime` attributes:
    ```ada
    for Target use runtime_build'Target;
