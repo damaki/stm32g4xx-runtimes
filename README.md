@@ -1,5 +1,8 @@
 # STM32G4xx Runtimes
 
+> [!IMPORTANT]
+> stm32g4xx-runtimes has moved to [community-bb-runtimes](https://github.com/damaki/community-bb-runtimes).
+
 This repository generates GNAT runtimes that support all MCUs in the STM32G4
 family.
 
